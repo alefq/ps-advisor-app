@@ -31,6 +31,15 @@ public class IndicatorUtilities {
     }
 
     /**
+     * Returns the responses in the same order they were inserted
+     */
+    public static List<IndicatorOption> getResponses(Collection<IndicatorOption> responses) {
+        List<IndicatorOption> responseList = new ArrayList<>(responses);
+
+        return responseList;
+    }
+
+    /**
      *
      * @return index in priority list if indicator is a priority, -1 otherwise
      */

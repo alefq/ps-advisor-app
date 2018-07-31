@@ -26,7 +26,7 @@ public class LifeMapAdapter extends RecyclerView.Adapter {
 
     public void setIndicators(Collection<IndicatorOption> responses) {
         if (responses != null) {
-            mResponses = IndicatorUtilities.getResponsesAscending(responses);
+            mResponses = IndicatorUtilities.getResponses(responses);
         }
 
         notifyDataSetChanged();

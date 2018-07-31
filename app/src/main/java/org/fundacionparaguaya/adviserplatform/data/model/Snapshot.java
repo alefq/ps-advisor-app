@@ -74,7 +74,7 @@ public class Snapshot implements Comparable<Snapshot>{
     @Ignore
     public Snapshot(Family family, Survey survey) {
         this(0, null, family == null ? null : family.getId(), survey.getId(), true,
-                new HashMap<>(), new HashMap<>(), new HashMap<>(), new LinkedList<>(), new Date());
+                new HashMap<>(), new HashMap<>(), new LinkedHashMap<>(), new LinkedList<>(), new Date());
         if (family != null) {
             fillPersonalResponses(family, survey);
         }
