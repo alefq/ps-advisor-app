@@ -29,6 +29,9 @@
     <string name="all_cancel">Cancel</string>
     <string name="all_confirmation_question">Ready to submit?</string>
 
+    <string name="logout_title">Oops! You can\'t log out</string>
+    <string name="logout_description">Please make sure you have internet connection and try again later</string>
+
     <!-- Login Activity -->
     <string name="login_username">Username</string>
     <string name="login_passwordprompt">Password</string>

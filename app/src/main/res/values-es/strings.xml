@@ -30,6 +30,9 @@
     <string name="all_cancel">Cancelar</string>
     <string name="all_confirmation_question">¿Estás seguro?</string>
 
+    <string name="logout_title">Ups! No puedes cerrar sesión</string>
+    <string name="logout_description">Por favor asegurate de tener conexión a Internet y vuelve a intentarlo más tarde</string>
+
     <!-- Login Activity -->
     <string name="login_username">Usuario</string>
     <string name="login_passwordprompt">Clave</string>
