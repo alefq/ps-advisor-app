@@ -8,6 +8,8 @@ import android.text.TextUtils;
 
 import org.fundacionparaguaya.adviserplatform.data.model.Family;
 import org.fundacionparaguaya.adviserplatform.data.repositories.FamilyRepository;
+import org.fundacionparaguaya.adviserplatform.data.repositories.SnapshotRepository;
+import org.fundacionparaguaya.adviserplatform.data.repositories.SurveyRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,12 +20,16 @@ import java.util.List;
 
 public class AllFamiliesViewModel extends ViewModel {
     private FamilyRepository mFamilyRepository;
+    private SnapshotRepository snapshotRepository;
+    private SurveyRepository surveyRepository;
     private LiveData<List<Family>> mFamilyList;
     private MediatorLiveData<List<Family>> mFilteredFamilyList;
     private final MutableLiveData<String> mSearchQuery = new MutableLiveData<>();
 
-    public AllFamiliesViewModel(FamilyRepository familyRepository) {
+    public AllFamiliesViewModel(FamilyRepository familyRepository, SnapshotRepository snapshotRepository, SurveyRepository surveyRepository) {
         this.mFamilyRepository = familyRepository;
+        this.snapshotRepository = snapshotRepository;
+        this.surveyRepository = surveyRepository;
         mFamilyList = mFamilyRepository.getFamilies();
 
         mFilteredFamilyList = new MediatorLiveData<>();
@@ -87,6 +93,18 @@ public class AllFamiliesViewModel extends ViewModel {
 
     public void filter(final String searchText) {
         mSearchQuery.setValue(searchText);
+    }
+
+    public SnapshotRepository getSnapshotRepository() {
+        return snapshotRepository;
+    }
+
+    public FamilyRepository getmFamilyRepository() {
+        return mFamilyRepository;
+    }
+
+    public SurveyRepository getSurveyRepository() {
+        return surveyRepository;
     }
 }
 

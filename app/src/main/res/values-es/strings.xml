@@ -135,4 +135,5 @@
     <string name="syncing_family_snapshots">Sincronizando %d of %d snaphots</string>
     <string name="login_error">Credenciales incorrectas</string>
     <string name="add_snapthot">Agregar snapshot</string>
+    <string name="pushing_family_snapshots">Enviando %d of %d snaphots</string>
 </resources>

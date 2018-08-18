@@ -138,11 +138,6 @@ public class Family {
     }
 
     @Override
-    public String toString() {
-        return ToStringBuilder.reflectionToString(this);
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -177,6 +172,22 @@ public class Family {
                 .append(member)
                 .append(imageUrl)
                 .toHashCode();
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append("id", id)
+                .append("remoteId", remoteId)
+                .append("name", name)
+                .append("code", code)
+                .append("address", address)
+                .append("isActive", isActive)
+                .append("lastModified", lastModified)
+                .append("location", location)
+                .append("member", member)
+                .append("imageUrl", imageUrl)
+                .toString();
     }
 
     public static class Builder {
@@ -266,4 +277,6 @@ public class Family {
             return new Family(id, remoteId, name, code, address, location, member, imageUrl, isActive, lastModified);
         }
     }
+
+
 }

@@ -2,6 +2,8 @@ package org.fundacionparaguaya.adviserplatform.injection;
 
 import android.app.Application;
 import dagger.Component;
+
+import org.fundacionparaguaya.adviserplatform.data.testing.SnapshotGenerator;
 import org.fundacionparaguaya.assistantadvisor.AdviserAssistantApplication;
 import org.fundacionparaguaya.adviserplatform.jobs.JobCreator;
 import org.fundacionparaguaya.adviserplatform.ui.activities.SplashActivity;
@@ -84,5 +86,7 @@ public interface ApplicationComponent {
     void inject(FamilyPrioritiesFrag familyPrioritiesFrag);
 
     void inject(SplashActivity splashActivity);
+
+    void inject(SnapshotGenerator snapshotGenerator);
 
 }

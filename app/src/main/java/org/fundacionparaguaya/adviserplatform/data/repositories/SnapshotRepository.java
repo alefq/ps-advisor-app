@@ -112,15 +112,17 @@ public class SnapshotRepository extends BaseRepository {
         if (rows == 0) { // no row was updated
             int id = (int) snapshotDao.insertSnapshot(snapshot);
             snapshot.setId(id);
-            Log.d(TAG, String.format("Snapshot INSERTED: %s", snapshot.toDebugString()));
+            //Log.d(TAG, String.format("Snapshot INSERTED: %s", snapshot.toDebugString()));
         } else {
-            Log.d(TAG, String.format("Snapshot UPDATED %s", snapshot.toDebugString()));
+            //Log.d(TAG, String.format("Snapshot UPDATED %s", snapshot.toDebugString()));
         }
     }
 
     private boolean pushSnapshots() {
         List<Snapshot> pending = snapshotDao.queryPendingFinishedSnapshots();
+        setRecordsCount(pending.size());
         boolean success = true;
+        int loopCount = 0;
         //We set the organization id, so families query can be filtered by organization
         long organizationId = getSharedPreferences().getLong(AppConstants.ORGANIZATION_ID,
                 -1);
@@ -128,6 +130,10 @@ public class SnapshotRepository extends BaseRepository {
         //TODO Sodep: error handling on REST API calls should be refactored
         // attempt to push each of the pending snapshots
         for (Snapshot snapshot : pending) {
+            if (getDashActivity() != null) {
+                getDashActivity().setSyncLabel(R.string.pushing_family_snapshots, ++loopCount,
+                        getRecordsCount());
+            }
             try {
                 Family family = familyRepository.getFamilyNow(snapshot.getFamilyId());
                 Survey survey = surveyRepository.getSurveyNow(snapshot.getSurveyId());
@@ -147,7 +153,7 @@ public class SnapshotRepository extends BaseRepository {
                     }
                 }
                 //endregion Temporary upload image for demo
-                Log.d(TAG, String.format("Snapshot SQLite: %s", snapshot.toDebugString()));
+//                Log.d(TAG, String.format("Snapshot SQLite: %s", snapshot.toDebugString()));
                 if (snapshot.getRemoteId() == null) {
                     //TODO Sodep: does this POST bring another information besides "id" from server,
                     //TODO Sodep: other than snapshots already has on device?
@@ -239,7 +245,7 @@ public class SnapshotRepository extends BaseRepository {
                 success = false;
             }
             if (success) {
-                Log.d(TAG, String.format("Deleted from SQLite: %s", snapshot.toDebugString()));
+//                Log.d(TAG, String.format("Deleted from SQLite: %s", snapshot.toDebugString()));
                 snapshotDao.deleteSyncedSnapshot(snapshot.getId());
                 //snapshotDao.deleteInProgressSnapshot(snapshot.getId());
 

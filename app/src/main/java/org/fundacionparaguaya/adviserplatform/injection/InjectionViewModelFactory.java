@@ -44,7 +44,7 @@ public class InjectionViewModelFactory implements ViewModelProvider.Factory {
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         if (modelClass.isAssignableFrom(AllFamiliesViewModel.class))
-            return (T) new AllFamiliesViewModel(familyRepository);
+            return (T) new AllFamiliesViewModel(familyRepository, snapshotRepository, surveyRepository);
         else if (modelClass.isAssignableFrom(LoginViewModel.class))
             return (T) new LoginViewModel(serverManager, authManager);
         else if (modelClass.isAssignableFrom(FamilyDetailViewModel.class))

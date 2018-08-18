@@ -144,4 +144,6 @@
     <string name="syncing_family_snapshots">Syncing %d of %d snapshots</string>
     <string name="login_error">Wrong credentials</string>
     <string name="add_snapthot">Add snapthot</string>
+    <string name="pushing_family_snapshots">Pushing %d of %d snapshots</string>
+
 </resources>

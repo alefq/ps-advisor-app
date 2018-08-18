@@ -3,6 +3,7 @@ package org.fundacionparaguaya.adviserplatform.ui.families;
 import android.app.Activity;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,7 +14,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.Toast;
+
+import org.fundacionparaguaya.adviserplatform.data.testing.SnapshotGenerator;
 import org.fundacionparaguaya.assistantadvisor.AdviserAssistantApplication;
+import org.fundacionparaguaya.assistantadvisor.BuildConfig;
 import org.fundacionparaguaya.assistantadvisor.R;
 import org.fundacionparaguaya.adviserplatform.ui.survey.SurveyActivity;
 import org.fundacionparaguaya.adviserplatform.ui.families.detail.FamilyDetailFrag;
@@ -25,9 +30,9 @@ import org.fundacionparaguaya.adviserplatform.injection.InjectionViewModelFactor
 import javax.inject.Inject;
 
 /**
- *  The fragment that displays all of the families the advisor is working with, and upcoming visits.
- *  It will allow them to search the families they're working with, and open up the family records by tapping
- *  on the family cards.
+ * The fragment that displays all of the families the advisor is working with, and upcoming visits.
+ * It will allow them to search the families they're working with, and open up the family records by tapping
+ * on the family cards.
  */
 
 public class AllFamiliesFragment extends AbstractStackedFrag {
@@ -64,13 +69,13 @@ public class AllFamiliesFragment extends AbstractStackedFrag {
         mFamiliesAdapter.addFamilySelectedHandler(e -> openFamily(e.getSelectedFamily().getId()));
     }
 
-    private void openFamily(int familyId)
-    {
+    private void openFamily(int familyId) {
         FamilyDetailFrag f = FamilyDetailFrag.build(familyId);
         MixpanelHelper.FamilyOpened.openFamily(getContext());
 
         navigateTo(f);
     }
+
     /**
      * Subscribe to all of the required call backs in the view model (ex. for LiveData objects)
      *
@@ -103,16 +108,27 @@ public class AllFamiliesFragment extends AbstractStackedFrag {
                 MixpanelHelper.SurveyEvents.newFamily(getContext());
             }
         });
+        addButton.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                AsyncTask.execute(() -> {
+                    SnapshotGenerator snapshotGenerator = new SnapshotGenerator();
+                    snapshotGenerator.generateSnapshot(mAllFamiliesViewModel);
+                });
+                Toast.makeText(getContext(), "Generando 100 snapshots",
+                        Toast.LENGTH_LONG).show();
+                return false;
+            }
+        });
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        switch (requestCode)
-        {
+        switch (requestCode) {
             case NEW_FAMILY_REQUEST:
-                if(resultCode == Activity.RESULT_OK){
+                if (resultCode == Activity.RESULT_OK) {
                     openFamily(SurveyActivity.getFamilyId(data));
                 }
                 break;
@@ -121,7 +137,7 @@ public class AllFamiliesFragment extends AbstractStackedFrag {
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState){
+                             ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_allfamilies, container, false);
 

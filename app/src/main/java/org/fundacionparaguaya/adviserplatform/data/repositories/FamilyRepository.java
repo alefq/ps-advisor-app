@@ -1,6 +1,7 @@
 package org.fundacionparaguaya.adviserplatform.data.repositories;
 
 import android.arch.lifecycle.LiveData;
+import android.util.Log;
 
 import org.fundacionparaguaya.assistantadvisor.R;
 import org.fundacionparaguaya.adviserplatform.data.local.FamilyDao;
@@ -71,11 +72,13 @@ public class FamilyRepository extends BaseRepository {
     }
 
     public void saveFamily(Family family) {
+        Log.d(TAG, String.format("Family %s", family));
         long rows = familyDao.updateFamily(family);
         if (rows == 0) { // no row was updated
             int id = (int) familyDao.insertFamily(family);
             family.setId(id);
         }
+        Log.d(TAG, String.format("Family %s: %s", rows == 0 ? "inserted" : "updated", family.getId()));
     }
 
     /**
