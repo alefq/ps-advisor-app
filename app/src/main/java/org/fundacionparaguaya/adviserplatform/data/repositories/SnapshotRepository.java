@@ -319,7 +319,10 @@ public class SnapshotRepository extends BaseRepository {
     private boolean pullSnapshots(Family family, List<Survey> surveyList)
             throws HttpException {
         try {
-            if (shouldAbortSync()) return false;
+            if (shouldAbortSync() || family == null || family.getRemoteId() == null) {
+                Log.d(TAG, String.format("Not retrieving snapshot for famliy: %s", family));
+                return false;
+            }
             // get the snapshots
             Response<List<SnapshotIr>> snapshotsResponse = snapshotService
                     .getAllSnapshotsByFamily(family.getRemoteId())

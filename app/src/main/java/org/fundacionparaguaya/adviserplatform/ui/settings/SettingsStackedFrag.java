@@ -36,7 +36,7 @@ public class SettingsStackedFrag extends AbstractStackedFrag {
     private TextView mUsername;
 
     private TextView mReleaseNum;
-    private Boolean queueSnapshots;
+    private Boolean queueSnapshots = false;
 
     protected @Inject
     InjectionViewModelFactory mViewModelFactory;
@@ -126,5 +126,13 @@ public class SettingsStackedFrag extends AbstractStackedFrag {
     public void onResume() {
         super.onResume();
         noSnapshotsRemainingToSync();
+    }
+
+    public Boolean getQueueSnapshots() {
+        return queueSnapshots;
+    }
+
+    public void setQueueSnapshots(Boolean queueSnapshots) {
+        this.queueSnapshots = queueSnapshots;
     }
 }

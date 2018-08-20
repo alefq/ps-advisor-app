@@ -5,6 +5,9 @@ import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
+
+import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
+
 import org.fundacionparaguaya.adviserplatform.data.model.*;
 import org.fundacionparaguaya.adviserplatform.data.repositories.FamilyRepository;
 import org.fundacionparaguaya.adviserplatform.data.repositories.SnapshotRepository;
@@ -24,6 +27,7 @@ import java.util.Set;
  */
 
 public class SharedSurveyViewModel extends ViewModel {
+
     public enum SurveyState {NONE, INTRO, BACKGROUND, ECONOMIC_QUESTIONS, INDICATORS, LIFEMAP, COMPLETE}
 
     private static String NO_SNAPSHOT_EXCEPTION_MESSAGE = "Method call requires an existing snapshot, but no snapshot has been created. (Call" +
@@ -456,8 +460,8 @@ public class SharedSurveyViewModel extends ViewModel {
         mSnapshot.setValue(mSnapshot.getValue()); //updates observers
     }
 
-    public void submitSnapshotAsync() {
-        SaveCompleteAsyncTask task = new SaveCompleteAsyncTask(this);
+    public void submitSnapshotAsync(SweetAlertDialog dialog) {
+        SaveCompleteAsyncTask task = new SaveCompleteAsyncTask(this, dialog);
         task.execute();
     }
 
@@ -530,9 +534,11 @@ public class SharedSurveyViewModel extends ViewModel {
      */
     static class SaveCompleteAsyncTask extends AsyncTask<Void, Void, Void> {
         private WeakReference<SharedSurveyViewModel> viewModelReference;
+        private SweetAlertDialog dialog;
 
-        SaveCompleteAsyncTask(SharedSurveyViewModel viewModel) {
+        SaveCompleteAsyncTask(SharedSurveyViewModel viewModel, SweetAlertDialog dialog) {
             viewModelReference = new WeakReference<SharedSurveyViewModel>(viewModel);
+            this.dialog = dialog;
         }
 
         @Override
@@ -566,8 +572,15 @@ public class SharedSurveyViewModel extends ViewModel {
             }
 
             SyncJob.sync();
-
+            if(dialog != null) {
+                dialog.dismissWithAnimation();
+            }
             viewModel.setSurveyState(SurveyState.COMPLETE);
+
         }
     }
+    public void submitSnapshotAsync() {
+        submitSnapshotAsync(null);
+    }
+
 }

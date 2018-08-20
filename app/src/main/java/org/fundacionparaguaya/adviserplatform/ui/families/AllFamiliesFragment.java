@@ -18,7 +18,6 @@ import android.widget.Toast;
 
 import org.fundacionparaguaya.adviserplatform.data.testing.SnapshotGenerator;
 import org.fundacionparaguaya.assistantadvisor.AdviserAssistantApplication;
-import org.fundacionparaguaya.assistantadvisor.BuildConfig;
 import org.fundacionparaguaya.assistantadvisor.R;
 import org.fundacionparaguaya.adviserplatform.ui.survey.SurveyActivity;
 import org.fundacionparaguaya.adviserplatform.ui.families.detail.FamilyDetailFrag;
@@ -112,7 +111,7 @@ public class AllFamiliesFragment extends AbstractStackedFrag {
             @Override
             public boolean onLongClick(View v) {
                 AsyncTask.execute(() -> {
-                    SnapshotGenerator snapshotGenerator = new SnapshotGenerator();
+                    SnapshotGenerator snapshotGenerator = new SnapshotGenerator(getActivity());
                     snapshotGenerator.generateSnapshot(mAllFamiliesViewModel);
                 });
                 Toast.makeText(getContext(), "Generando 100 snapshots",

@@ -107,8 +107,7 @@ public class SurveyPriorityListFrag extends Fragment {
                 .showCancelButton(true)
                 .setCancelClickListener(SweetAlertDialog::cancel)
                 .setConfirmClickListener((dialog)-> {
-                    mSharedSurveyViewModel.submitSnapshotAsync();
-                    dialog.dismissWithAnimation();
+                    mSharedSurveyViewModel.submitSnapshotAsync(dialog);
                 })
                 .show();
     }
