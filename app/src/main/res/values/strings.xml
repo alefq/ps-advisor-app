@@ -135,7 +135,7 @@
 
     <!--App Limits-->
     <string name="snapshots_limit_medium">You\'ve reached %d\%% of app capacity for families information</string>
-    <string name="snapshots_limit_high">You\'ve reached %.d\%% of app capacity for families information. Please reach for an stable internet connection to sync your data</string>
+    <string name="snapshots_limit_high">You\'ve reached %d\%% of app capacity for families information. Please reach for an stable internet connection to sync your data</string>
     <string name="snapshot_limit_reach">You\'ve reached the maximum capacity for families information. Please reach for an stable internet connection to sync your data</string>
     <string name="survey_disable">No surveys allowed</string>
     <string name="sync_require">Synchronization required</string>

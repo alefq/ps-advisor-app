@@ -118,6 +118,8 @@ public class DashActivity extends AbstractFragSwitcherActivity implements Displa
         TransitionManager.beginDelayedTransition(findViewById(R.id.dashboardtopbar));
         mBackButton.setVisibility(frag.isBackNavRequired()? View.VISIBLE: View.GONE);
         mTvTabTitle.setVisibility(frag.isBackNavRequired()? View.GONE: View.VISIBLE);
+
+        snapshotsRemainingToSync();
     }
 
     @Override
@@ -156,8 +158,6 @@ public class DashActivity extends AbstractFragSwitcherActivity implements Displa
         rootView.setScrollingEnabled(true);
         ViewCompat.setNestedScrollingEnabled(rootView, false);
         mSyncManager.setDashActivity(this);
-
-        snapshotsRemainingToSync();
 
         //update last sync label when the sync manager updates
         mSyncManager.getProgress().observe(this, (value) -> {
@@ -301,7 +301,7 @@ public class DashActivity extends AbstractFragSwitcherActivity implements Displa
             Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG);
             toast.show();
 
-        } else if (queueSnapshots > AppConstants.HIGH_CAPACITY && queueSnapshots < AppConstants.MAXIMUM_CAPACITY) {
+        } else if (queueSnapshots >= AppConstants.HIGH_CAPACITY && queueSnapshots < AppConstants.MAXIMUM_CAPACITY) {
             message = getString(R.string.snapshots_limit_high,(queueSnapshots*100)/AppConstants.MAXIMUM_CAPACITY);
             makeLimitDialog(message).show();
 
