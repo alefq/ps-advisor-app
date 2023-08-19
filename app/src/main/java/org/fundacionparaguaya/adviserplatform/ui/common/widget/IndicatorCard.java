@@ -103,11 +103,7 @@ public class IndicatorCard extends LinearLayout{
             mText.setOnTouchListener((v, event) -> {
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN: {
-                        pressStartTime = System.currentTimeMillis();
-                        pressedX = event.getX();
-                        pressedY = event.getY();
-                        stayedWithinClickDistance = true;
-                        mText.performClick();
+                        performClickHandler(event.getX(), event.getY());
                         break;
                     }
                     case MotionEvent.ACTION_MOVE: {
@@ -137,6 +133,13 @@ public class IndicatorCard extends LinearLayout{
         }
     }
 
+    public void performClickHandler(float x, float y) {
+        pressStartTime = System.currentTimeMillis();
+        pressedX = x;
+        pressedY = y;
+        stayedWithinClickDistance = true;
+        mText.performClick();
+    }
     public void setOption(IndicatorOption option)
     {
         if(option != null) {
@@ -202,11 +205,7 @@ public class IndicatorCard extends LinearLayout{
     public boolean onTouchEvent(MotionEvent e) {
         switch (e.getAction()) {
             case MotionEvent.ACTION_DOWN: {
-                pressStartTime = System.currentTimeMillis();
-                pressedX = e.getX();
-                pressedY = e.getY();
-                stayedWithinClickDistance = true;
-                performClick();
+                performClickHandler(e.getX(), e.getY());
                 break;
             }
             case MotionEvent.ACTION_MOVE: {
