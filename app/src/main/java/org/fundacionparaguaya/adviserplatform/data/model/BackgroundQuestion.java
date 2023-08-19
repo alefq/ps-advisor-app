@@ -20,21 +20,15 @@ public class BackgroundQuestion extends SurveyQuestion {
     @SerializedName("options")
     private Map<String, String> options;
 
-    public BackgroundQuestion(String name,
-                              String description,
-                              boolean required,
-                              ResponseType responseType,
+    public BackgroundQuestion(SurveyQuestion surveyQ,
                               QuestionType questionType) {
-        this(name, description, required, responseType, questionType, new HashMap<>());
+        this(surveyQ.getName(), surveyQ.getDescription(), surveyQ.getRequired(), surveyQ.getResponseType(), questionType, new HashMap<>());
     }
   
-    public BackgroundQuestion(String name,
-                              String description,
-                              boolean required,
-                              ResponseType responseType,
+    public BackgroundQuestion(SurveyQuestion surveyQ,
                               QuestionType questionType,
                               Map<String, String> options) {
-        super(name, description, required, responseType);
+        super(surveyQ.getName(), surveyQ.getDescription(), surveyQ.getRequired(), surveyQ.getResponseType(),);
         this.type = questionType;
         this.options = options;
     }
