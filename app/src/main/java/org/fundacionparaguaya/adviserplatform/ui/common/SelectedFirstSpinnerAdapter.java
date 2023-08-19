@@ -79,23 +79,8 @@ public class SelectedFirstSpinnerAdapter<T> extends ArrayAdapter<String> {
 
     @Nullable
     @Override
-    public String getItem(int position) {
-        //Array
-        //// [   0   ]
-        //// [   1   ]   <- selected array index = 1, loc = 0
-        //// [   2   ]
-        //// [   3   ]
-
-        //Spinner
-        ////Index 0: [   1   ] <- currently selected
-        ////Index 1: [   0   ]
-        ////Index 2: [   2   ]
-        ////Index 3: [   3   ]
-
-        //so if index 0 is clicked, that's our currently selected
-        //if index 1 is clicked that's actually the value -1
-
-        //adjusted position, when accounting for reordering around selected index
+    public String getItemFromSpinner(int position) {
+       
         int adjustedPosition = convertSpinnerToValuesIndex(position);
 
         if(adjustedPosition == -1)
